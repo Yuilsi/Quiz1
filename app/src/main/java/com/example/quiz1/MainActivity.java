@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView studentsText;
     private Button registerBtn;
+    private String listStudent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,26 +28,29 @@ public class MainActivity extends AppCompatActivity {
         studentsText=findViewById(R.id.studentsText);
         registerBtn= findViewById(R.id.registerBtn);
 
-
+        listStudent="";
 
        cargarDatos();
 
 
         registerBtn.setOnClickListener((view) -> {
                 Intent notaIntent = new Intent(this, RegistroActivity.class);
-                startActivity(notaIntent);
-                finish();
+                startActivityForResult(notaIntent,20);
+              //  finish();
         });
 
     }
 
     private void cargarDatos() {
-        SharedPreferences preferences= getSharedPreferences
-                ("datos de estudiantes", Context.MODE_PRIVATE);
 
-        String user=preferences.getString("user","no hay registros");      //dato clave a guardar
-        studentsText.setText(user);
 
+            SharedPreferences preferences = getSharedPreferences
+                    ("datos de estudiantes", Context.MODE_PRIVATE);
+
+            String user = preferences.getString("user", "no hay registros");      //dato clave a guardar
+            studentsText.setText(user);
+           listStudent+= user + "\n";
+            // studentsText.setText(listStudent);
 
 
     }

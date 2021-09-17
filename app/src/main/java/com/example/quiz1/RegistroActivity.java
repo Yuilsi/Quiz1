@@ -29,12 +29,12 @@ public class RegistroActivity extends AppCompatActivity {
 
         nameEdiText=findViewById(R.id.nameEdiText);
         codeEdiText=findViewById(R.id.codeEdiText);
-        continue1Btn=(Button)findViewById(R.id.continue1Btn);
-        continue1Btn.setEnabled(true);
+        continue1Btn=findViewById(R.id.continue1Btn);
+      //  continue1Btn.setEnabled(true);
 
 
 
-        nameEdiText.addTextChangedListener(new TextWatcher() {
+       /* nameEdiText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(charSequence.toString().equals("")){
@@ -49,23 +49,20 @@ public class RegistroActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                verificarDatos();
+              //  verificarDatos();
             }
         });
-
+*/
 
         continue1Btn.setOnClickListener((view) -> {
-            nameEdiText.setText("");
+            guardarDatos();
+            Intent intent=new Intent(this,PreparationActivity.class);
+            startActivityForResult(intent,20);
             guardarDatos();
 
 
-            Intent intent=new Intent(this,PreparationActivity.class);
-            startActivity(intent);
-
         });
     }
-
-
 
     private void guardarDatos() {
         SharedPreferences preferences= getSharedPreferences
@@ -81,23 +78,9 @@ public class RegistroActivity extends AppCompatActivity {
         nameEdiText.setText(usuario);
         codeEdiText.setText(pass);
         editor.commit();
-      //  Toast.makeText(this,"el estudiante ha sido registrado",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this,"el estudiante ha sido registrado",Toast.LENGTH_SHORT).show();
     }
 
-    private void verificarDatos(){
 
-        SharedPreferences preferences= getSharedPreferences
-                ("datos de estudiantes", Context.MODE_PRIVATE);
-
-        String usuario=nameEdiText.getText().toString();    //obtenemos la informacion que ingresamos en el formulario
-        String pass=codeEdiText.getText().toString();
-
-        if(usuario.contains(nameEdiText.getText().toString())&&pass.contains(codeEdiText.getText().toString())){
-            continue1Btn.setEnabled(false);
-            Toast.makeText(this,"ya estas registrado",Toast.LENGTH_SHORT).show();
-        }else{
-            continue1Btn.setEnabled(true);
-        }
-    }
 
 }
